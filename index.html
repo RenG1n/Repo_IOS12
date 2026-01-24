@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="dark-theme">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,623 +7,774 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Цветовые переменные для светлой темы */
-            --primary-bg-light: #f2f2f7;
-            --secondary-bg-light: #ffffff;
-            --text-light: #1d1d1f;
-            --accent-light: #007aff;
-            --glass-light: rgba(255, 255, 255, 0.7);
-            --shadow-light: rgba(0, 0, 0, 0.05);
-            
-            /* Цветовые переменные для темной темы */
-            --primary-bg-dark: #000000;
-            --secondary-bg-dark: #1c1c1e;
-            --text-dark: #f5f5f7;
-            --accent-dark: #0a84ff;
-            --glass-dark: rgba(28, 28, 30, 0.7);
-            --shadow-dark: rgba(0, 0, 0, 0.3);
-            
-            /* Общие переменные (будут переопределены в зависимости от темы) */
-            --primary-bg: var(--primary-bg-light);
-            --secondary-bg: var(--secondary-bg-light);
-            --text-color: var(--text-light);
-            --accent-color: var(--accent-light);
-            --glass-color: var(--glass-light);
-            --shadow-color: var(--shadow-light);
-            --blur-intensity: 20px;
+            --primary-black: #0a0a0a;
+            --secondary-black: #1a1a1a;
+            --primary-white: #f0f0f0;
+            --secondary-white: #d0d0d0;
+            --accent-green: #00ff00;
+            --accent-dark-green: #00cc00;
+            --gray-dark: #333;
+            --gray-light: #aaa;
+            --transition-speed: 0.5s;
         }
-        
-        /* Применение темной темы */
-        .dark-theme {
-            --primary-bg: var(--primary-bg-dark);
-            --secondary-bg: var(--secondary-bg-dark);
-            --text-color: var(--text-dark);
-            --accent-color: var(--accent-dark);
-            --glass-color: var(--glass-dark);
-            --shadow-color: var(--shadow-dark);
+
+        .light-theme {
+            --primary-black: #f0f0f0;
+            --secondary-black: #e0e0e0;
+            --primary-white: #0a0a0a;
+            --secondary-white: #1a1a1a;
+            --accent-green: #008800;
+            --accent-dark-green: #006600;
+            --gray-dark: #aaa;
+            --gray-light: #333;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-black);
+            color: var(--primary-white);
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
             position: relative;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
         }
-        
-        /* Эффект жидкого стекла */
-        .glass-effect {
-            background: var(--glass-color);
-            backdrop-filter: blur(var(--blur-intensity));
-            -webkit-backdrop-filter: blur(var(--blur-intensity));
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px var(--shadow-color);
-        }
-        
-        /* Уведомление в стиле iOS 26 */
-        .notification-banner {
+
+        .binary-background {
             position: fixed;
-            top: -100px;
+            top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 15px 20px;
-            margin: 20px;
-            background: var(--secondary-bg);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transform: translateY(0);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-black);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 0, 0.05) 0%, transparent 20%);
+            z-index: -1;
+            overflow: hidden;
         }
-        
-        .notification-banner.show {
-            transform: translateY(150px);
-        }
-        
-        .notification-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .notification-icon {
-            background: linear-gradient(135deg, #007aff, #5856d6);
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-        }
-        
-        .notification-text {
-            flex-grow: 1;
-        }
-        
-        .notification-text h4 {
-            font-size: 16px;
-            margin-bottom: 3px;
-        }
-        
-        .notification-text p {
+
+        .binary-text {
+            position: absolute;
+            color: rgba(0, 255, 0, 0.1);
+            font-family: 'Courier New', monospace;
             font-size: 14px;
-            opacity: 0.8;
+            white-space: nowrap;
+            user-select: none;
+            animation: float 20s linear infinite;
         }
-        
-        /* Контейнер */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0); }
+            100% { transform: translateY(-100px) translateX(0); }
         }
-        
-        /* Шапка */
+
+        /* Шапка сайта */
         header {
-            padding: 40px 0 20px;
-            text-align: center;
-        }
-        
-        .logo {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #007aff, #5856d6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -1px;
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
-        
-        /* Переключатель темы */
-        .theme-toggle {
+            background-color: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px);
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--secondary-bg);
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--accent-green);
+            transition: all var(--transition-speed);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-green);
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            font-size: 20px;
+            gap: 10px;
         }
-        
-        /* Основное содержимое */
-        main {
-            display: grid;
-            grid-template-columns: 1fr;
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
             gap: 30px;
-            margin-bottom: 50px;
         }
-        
-        @media (min-width: 768px) {
-            main {
-                grid-template-columns: 2fr 1fr;
-            }
-        }
-        
-        .card {
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-        
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+
+        nav a {
+            color: var(--primary-white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
             position: relative;
-            display: inline-block;
         }
-        
-        h2:after {
+
+        nav a:hover {
+            color: var(--accent-green);
+        }
+
+        nav a::after {
             content: '';
             position: absolute;
             bottom: -5px;
             left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent-color);
-            border-radius: 3px;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-green);
+            transition: width 0.3s ease;
         }
-        
-        /* Секция инструкции */
-        .steps {
-            margin-top: 20px;
+
+        nav a:hover::after {
+            width: 100%;
         }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 25px;
-        }
-        
-        .step-number {
-            background: var(--accent-color);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+
+        .theme-toggle {
+            background-color: transparent;
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-            font-weight: bold;
+            gap: 8px;
+            transition: all 0.3s ease;
         }
-        
-        /* Секция донатов */
-        .donation-methods {
-            margin-top: 20px;
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 255, 0, 0.1);
         }
-        
-        .donation-method {
+
+        /* Основной контент */
+        main {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 60px;
+            border-bottom: 1px solid var(--gray-dark);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-green);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--secondary-white);
+        }
+
+        section {
+            margin-bottom: 80px;
+            background-color: rgba(26, 26, 26, 0.7);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all var(--transition-speed);
+        }
+
+        section h2 {
+            font-size: 2.2rem;
             margin-bottom: 25px;
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        
-        .method-title {
+
+        section h2 i {
+            font-size: 1.8rem;
+        }
+
+        /* Стили для инструкции */
+        .instructions {
+            background-color: rgba(20, 20, 20, 0.8);
+            border-left: 4px solid var(--accent-green);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .instructions ol {
+            margin-left: 25px;
+            margin-top: 15px;
+        }
+
+        .instructions li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .instructions strong {
+            color: var(--accent-green);
+        }
+
+        /* Стили для пакетов */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .package-card {
+            background-color: rgba(15, 15, 15, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+            box-shadow: 0 10px 20px rgba(0, 255, 0, 0.1);
+        }
+
+        .package-card h3 {
+            color: var(--accent-green);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 10px;
-            font-weight: bold;
         }
-        
-        .method-icon {
-            background: var(--accent-color);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        .package-card p {
+            color: var(--secondary-white);
+            font-size: 1rem;
+            line-height: 1.5;
         }
-        
-        .method-details {
-            background: var(--primary-bg);
+
+        /* Стили для донатов */
+        .donation-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .donation-option {
+            background-color: rgba(15, 15, 15, 0.8);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .donation-option:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
+        }
+
+        .donation-option h3 {
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .donation-details {
+            font-family: 'Courier New', monospace;
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 15px;
-            border-radius: 12px;
+            border-radius: 5px;
+            margin-top: 10px;
             word-break: break-all;
-            font-family: monospace;
             font-size: 0.9rem;
         }
-        
-        /* Секция пакетов */
-        .package {
-            margin-bottom: 25px;
-        }
-        
-        .package-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        
-        .package-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        
-        .package-status {
-            background: var(--accent-color);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-        
-        /* Ссылки на соцсети */
+
+        /* Стили для социальных ссылок */
         .social-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 20px;
+            margin-top: 30px;
         }
-        
+
         .social-link {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 20px;
-            background: var(--secondary-bg);
-            border-radius: 12px;
+            background-color: rgba(15, 15, 15, 0.8);
+            padding: 15px 25px;
+            border-radius: 8px;
             text-decoration: none;
-            color: var(--text-color);
-            transition: transform 0.2s, background-color 0.3s;
+            color: var(--primary-white);
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
         }
-        
+
         .social-link:hover {
+            background-color: var(--accent-green);
+            color: var(--primary-black);
             transform: translateY(-3px);
-            background-color: var(--accent-color);
-            color: white;
         }
-        
+
+        .social-link i {
+            font-size: 1.5rem;
+        }
+
+        /* Уведомление о Telegram */
+        .telegram-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(26, 26, 26, 0.95);
+            border-left: 5px solid #0088cc;
+            border-radius: 8px;
+            padding: 20px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            transform: translateX(-100%);
+            animation: slideIn 0.8s forwards 1s;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        @keyframes slideIn {
+            to { transform: translateX(0); }
+        }
+
+        .telegram-notification.hidden {
+            transform: translateX(-100%);
+            animation: slideOut 0.5s forwards;
+        }
+
+        @keyframes slideOut {
+            to { transform: translateX(-400px); }
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-header h3 {
+            color: #0088cc;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-notification {
+            background: transparent;
+            border: none;
+            color: var(--secondary-white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-notification:hover {
+            color: var(--accent-green);
+        }
+
+        .notification-content {
+            color: var(--secondary-white);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .notification-button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .notification-button:hover {
+            background-color: #006699;
+        }
+
         /* Подвал */
         footer {
+            background-color: rgba(10, 10, 10, 0.95);
+            padding: 40px 5%;
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(128, 128, 128, 0.2);
-            margin-top: 30px;
+            border-top: 1px solid var(--accent-green);
+            margin-top: 60px;
         }
-        
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
-            margin-top: 20px;
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        
+
+        footer p {
+            color: var(--secondary-white);
+            margin-bottom: 10px;
+        }
+
         /* Адаптивность */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
             }
             
-            .logo {
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
                 font-size: 2.5rem;
             }
             
-            .card {
-                padding: 20px;
+            section {
+                padding: 30px 20px;
             }
             
-            .notification-banner {
-                margin: 10px;
-                padding: 12px 15px;
+            .package-grid, .donation-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .telegram-notification {
+                width: calc(100% - 40px);
+                max-width: 350px;
             }
         }
     </style>
 </head>
-<body class="light-theme">
-    <!-- Уведомление в стиле iOS 26 -->
-    <div class="notification-banner glass-effect" id="notificationBanner">
-        <div class="notification-content">
-            <div class="notification-icon">
-                <i class="fab fa-telegram"></i>
-            </div>
-            <div class="notification-text">
-                <h4>Подпишитесь на Telegram-канал проекта</h4>
-                <p>Нажмите, чтобы подписаться на ТГК проекта и следить за новостями</p>
-            </div>
-        </div>
-        <div class="notification-close">
-            <i class="fas fa-chevron-right"></i>
-        </div>
-    </div>
+<body>
+    <!-- Двоичный фон -->
+    <div class="binary-background" id="binaryBackground"></div>
     
-    <!-- Переключатель темы -->
-    <div class="theme-toggle glass-effect" id="themeToggle">
-        <i class="fas fa-moon"></i>
-    </div>
-    
-    <div class="container">
-        <!-- Шапка -->
-        <header>
-            <h1 class="logo">hiwulkku</h1>
-            <p class="tagline">Репозиторий пакетов для джейлбрейка Sileo</p>
-        </header>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-cube"></i>
+            <span>hiwulkku</span>
+        </div>
         
-        <main>
-            <!-- Левая колонка -->
-            <div>
-                <!-- Инструкция по добавлению репозитория -->
-                <section class="card glass-effect">
-                    <h2>Как добавить репозиторий</h2>
-                    <p>Добавьте наш репозиторий в Sileo для доступа ко всем пакетам:</p>
-                    
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <p>Откройте приложение <strong>Sileo</strong> на вашем устройстве с джейлбрейком</p>
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <p>Перейдите на вкладку <strong>Sources</strong> (Источники) в нижнем меню</p>
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <p>Нажмите кнопку <strong>+</strong> в правом верхнем углу</p>
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <p>Вставьте URL нашего репозитория:</p>
-                                <div class="method-details">
-                                    https://ivliushiqxz.github.io/hiwulkku/
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <p>Нажмите <strong>Add Source</strong> и дождитесь обновления списка пакетов</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+        <nav>
+            <ul>
+                <li><a href="#about">О репозитории</a></li>
+                <li><a href="#instructions">Добавление в Sileo</a></li>
+                <li><a href="#packages">Популярные пакеты</a></li>
+                <li><a href="#donate">Поддержка проекта</a></li>
+                <li><a href="#social">Контакты</a></li>
+            </ul>
+        </nav>
+        
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i> Тема
+        </button>
+    </header>
+    
+    <!-- Основной контент -->
+    <main>
+        <!-- Герой-секция -->
+        <section class="hero">
+            <h1>hiwulkku</h1>
+            <p>Мощный репозиторий пакетов для Sileo с самыми популярными твиками и модификациями для джейлбрейка iOS</p>
+        </section>
+        
+        <!-- О репозитории -->
+        <section id="about">
+            <h2><i class="fas fa-info-circle"></i> О репозитории</h2>
+            <p>hiwulkku — это тщательно подобранная коллекция пакетов для менеджера пакетов Sileo, работающего на джейлбрейкнутых устройствах iOS. Мы не создаем пакеты самостоятельно, а собираем лучшие твики и модификации от талантливых разработчиков сообщества.</p>
+            <p>Наша цель — предоставить пользователям удобный доступ к самым популярным и проверенным пакетам, которые расширяют возможности вашего устройства, добавляют новые функции и улучшают пользовательский опыт.</p>
+            <p>Все пакеты проверены на совместимость и безопасность, чтобы обеспечить стабильную работу вашего устройства.</p>
+        </section>
+        
+        <!-- Инструкция по добавлению репозитория -->
+        <section id="instructions">
+            <h2><i class="fas fa-download"></i> Добавление репозитория в Sileo</h2>
+            <p>Чтобы добавить наш репозиторий в Sileo и получить доступ ко всем пакетам, выполните следующие действия:</p>
+            
+            <div class="instructions">
+                <ol>
+                    <li>Откройте приложение <strong>Sileo</strong> на вашем джейлбрейкнутом устройстве</li>
+                    <li>Перейдите на вкладку <strong>«Источники»</strong> (Sources)</li>
+                    <li>Нажмите кнопку <strong>«+»</strong> в правом верхнем углу</li>
+                    <li>В появившемся поле введите адрес нашего репозитория:</li>
+                </ol>
+                <div class="donation-details" style="margin-top: 20px; text-align: center; font-size: 1.2rem;">
+                    <strong>https://ivliushiqxz.github.io/hiwulkku/</strong>
+                </div>
+                <ol start="5">
+                    <li>Нажмите <strong>«Добавить»</strong> (Add Source)</li>
+                    <li>Дождитесь завершения процесса добавления репозитория</li>
+                    <li>Обновите источники, если это потребуется</li>
+                    <li>Теперь вы можете искать и устанавливать пакеты из нашего репозитория!</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- Популярные пакеты -->
+        <section id="packages">
+            <h2><i class="fas fa-star"></i> Популярные пакеты</h2>
+            <p>В нашем репозитории собраны лучшие пакеты для кастомизации и улучшения вашего iOS-устройства:</p>
+            
+            <div class="package-grid">
+                <div class="package-card">
+                    <h3><i class="fas fa-snowflake"></i> SnowBoard</h3>
+                    <p>Легкий духовный преемник легендарного движка WinterBoard. Он работает с iOS 7 и выше, поддерживает форматы всех других популярных движковых тем. SnowBoard верен духу джейлбрейка и как важный инструмент, он доступен бесплатно.</p>
+                </div>
                 
-                <!-- Популярные пакеты -->
-                <section class="card glass-effect">
-                    <h2>Популярные пакеты</h2>
-                    
-                    <div class="package">
-                        <div class="package-header">
-                            <div class="package-name">SnowBoard</div>
-                            <div class="package-status">Бесплатно</div>
-                        </div>
-                        <p>SnowBoard - легкий духовный преемник легендарного движка WinterBoard. Он работает с iOS 7 и выше, поддерживает форматы всех других популярных движковых тем. SnowBoard верен духу джейлбрейка и как важный инструмент, он доступен бесплатно.</p>
+                <div class="package-card">
+                    <h3><i class="fas fa-palette"></i> Zenith</h3>
+                    <p>Инновационный твик для организации иконок на домашнем экране. Позволяет группировать приложения в удобные раскрывающиеся папки прямо на рабочем столе, экономя место и создавая чистый, организованный вид.</p>
+                </div>
+                
+                <div class="package-card">
+                    <h3><i class="fas fa-shield-alt"></i> Choicy</h3>
+                    <p>Мощный твик для тонкого контроля над твиками и их влиянием на приложения. Позволяет отключать твики для конкретных приложений, уменьшая вероятность конфликтов и повышая стабильность системы.</p>
+                </div>
+                
+                <div class="package-card">
+                    <h3><i class="fas fa-gamepad"></i> CarBridge</h3>
+                    <p>Революционный твик для пользователей CarPlay, который позволяет запускать любое приложение на экране автомобиля, а не только ограниченный набор, разрешенный Apple. Превращает CarPlay в полноценную развлекательную систему.</p>
+                </div>
+                
+                <div class="package-card">
+                    <h3><i class="fas fa-keyboard"></i> Shortmoji 2</h3>
+                    <p>Расширенная клавиатура Emoji с огромным количеством дополнительных символов, жестов и возможностей кастомизации. Добавляет новые ряды клавиш, дополнительные Emoji и улучшает общий опыт набора текста.</p>
+                </div>
+                
+                <div class="package-card">
+                    <h3><i class="fas fa-music"></i> Mitsuha Forever</h3>
+                    <p>Визуализатор аудио с потрясающими эффектами, который работает в системном аудиоплеере, Spotify, YouTube и других приложениях. Превращает прослушивание музыки в захватывающий визуальный опыт с анимированными волнами.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Поддержка проекта -->
+        <section id="donate">
+            <h2><i class="fas fa-heart"></i> Поддержка проекта</h2>
+            <p>Наш репозиторий существует и развивается благодаря поддержке сообщества. Если вам нравятся наши пакеты и вы хотите поддержать дальнейшее развитие проекта, рассмотрите возможность сделать пожертвование.</p>
+            
+            <div class="donation-options">
+                <div class="donation-option">
+                    <h3><i class="fas fa-credit-card"></i> Карта РФ</h3>
+                    <p>Тинькофф Банк</p>
+                    <div class="donation-details">
+                        2200 7021 1785 5077
                     </div>
-                    
-                    <div class="package">
-                        <div class="package-header">
-                            <div class="package-name">Cylinder</div>
-                            <div class="package-status">Бесплатно</div>
-                        </div>
-                        <p>Анимированные эффекты для перелистывания иконок на домашнем экране. Более 100 различных эффектов на выбор с возможностью создания собственных.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem;">Получатель: Владислав И.</p>
+                </div>
+                
+                <div class="donation-option">
+                    <h3><i class="fab fa-btc"></i> Bitcoin</h3>
+                    <p>Скоро будет доступно</p>
+                    <div class="donation-details">
+                        Адрес будет добавлен в ближайшее время
                     </div>
-                    
-                    <div class="package">
-                        <div class="package-header">
-                            <div class="package-name">Jellyfish</div>
-                            <div class="package-status">Бесплатно</div>
-                        </div>
-                        <p>Красивая замена стандартному экрану блокировки с анимированными часами, которые плавно меняют цвет в зависимости от времени суток.</p>
+                </div>
+                
+                <div class="donation-option">
+                    <h3><i class="fas fa-donate"></i> Donation Alerts</h3>
+                    <p>Скоро будет доступно</p>
+                    <div class="donation-details">
+                        Ссылка будет добавлена в ближайшее время
                     </div>
-                    
-                    <div class="package">
-                        <div class="package-header">
-                            <div class="package-name">Xen HTML</div>
-                            <div class="package-status">Бесплатно</div>
-                        </div>
-                        <p>Позволяет добавлять виджеты на экран блокировки и домашний экран. Поддерживает огромное количество виджетов от сообщества.</p>
-                    </div>
-                </section>
+                </div>
             </div>
             
-            <!-- Правая колонка -->
-            <div>
-                <!-- Донаты -->
-                <section class="card glass-effect">
-                    <h2>Поддержать проект</h2>
-                    <p>Мы никогда не создаем платные пакеты, но если вы хотите поддержать развитие репозитория, можете сделать пожертвование:</p>
-                    
-                    <div class="donation-methods">
-                        <div class="donation-method">
-                            <div class="method-title">
-                                <div class="method-icon">
-                                    <i class="fas fa-credit-card"></i>
-                                </div>
-                                <span>Карта РФ (Т-Банк)</span>
-                            </div>
-                            <div class="method-details">
-                                2200 7021 1785 5077<br>
-                                Получатель: Владислав И.
-                            </div>
-                        </div>
-                        
-                        <div class="donation-method">
-                            <div class="method-title">
-                                <div class="method-icon">
-                                    <i class="fab fa-btc"></i>
-                                </div>
-                                <span>Bitcoin (BTC)</span>
-                            </div>
-                            <div class="method-details">
-                                Адрес: soon
-                            </div>
-                        </div>
-                        
-                        <div class="donation-method">
-                            <div class="method-title">
-                                <div class="method-icon">
-                                    <i class="fas fa-heart"></i>
-                                </div>
-                                <span>DonationAlerts</span>
-                            </div>
-                            <div class="method-details">
-                                Скоро будет добавлено
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <!-- Ссылки на соцсети -->
-                <section class="card glass-effect">
-                    <h2>Ссылки</h2>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link" id="telegramLink">
-                            <i class="fab fa-telegram"></i>
-                            <span>Telegram-канал проекта</span>
-                        </a>
-                        
-                        <a href="#" class="social-link" id="githubLink">
-                            <i class="fab fa-github"></i>
-                            <span>GitHub создателя</span>
-                        </a>
-                        
-                        <a href="#" class="social-link" id="tiktokLink">
-                            <i class="fab fa-tiktok"></i>
-                            <span>TikTok создателя</span>
-                        </a>
-                    </div>
-                </section>
-                
-                <!-- Информация о репозитории -->
-                <section class="card glass-effect">
-                    <h2>О репозитории</h2>
-                    <p>Репозиторий <strong>hiwulkku</strong> предоставляет разнообразные пакеты для джейлбрейка через менеджер пакетов Sileo. Мы не создаем пакеты самостоятельно, а собираем и проверяем лучшие решения от сообщества.</p>
-                    <p>Все пакеты проходят проверку на совместимость и безопасность перед добавлением в репозиторий.</p>
-                </section>
-            </div>
-        </main>
+            <p style="margin-top: 30px; text-align: center; font-style: italic;">Любая сумма поможет нам поддерживать и развивать репозиторий. Спасибо за вашу поддержку!</p>
+        </section>
         
-        <!-- Подвал -->
-        <footer>
-            <p>Репозиторий hiwulkku &copy; 2023</p>
-            <p class="copyright">Все пакеты предоставляются бесплатно. Мы не несем ответственности за возможные неполадки на ваших устройствах.</p>
-        </footer>
+        <!-- Социальные сети и контакты -->
+        <section id="social">
+            <h2><i class="fas fa-users"></i> Контакты и соцсети</h2>
+            <p>Следите за обновлениями, задавайте вопросы и общайтесь с сообществом:</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    <div>
+                        <strong>Telegram-канал проекта</strong>
+                        <div style="font-size: 0.9rem;">Новости, обновления и анонсы</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <strong>GitHub создателя</strong>
+                        <div style="font-size: 0.9rem;">Исходный код и другие проекты</div>
+                    </div>
+                </a>
+                
+                <a href="#" class="social-link" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                    <div>
+                        <strong>TikTok создателя</strong>
+                        <div style="font-size: 0.9rem;">Видео и туториалы по джейлбрейку</div>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Уведомление о Telegram -->
+    <div class="telegram-notification" id="telegramNotification">
+        <div class="notification-header">
+            <h3><i class="fab fa-telegram"></i> Telegram-канал</h3>
+            <button class="close-notification" id="closeNotification">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="notification-content">
+            Подпишитесь на наш Telegram-канал, чтобы быть в курсе всех новостей, обновлений пакетов и важных анонсов. Мы регулярно публикуем информацию о новых твиках, инструкции по установке и полезные советы по джейлбрейку.
+        </div>
+        <a href="#" class="notification-button" target="_blank">
+            <i class="fab fa-telegram"></i> Подписаться на канал
+        </a>
     </div>
-
+    
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <p><strong>hiwulkku</strong> — репозиторий пакетов для Sileo</p>
+            <p>Все пакеты принадлежат их соответствующим разработчикам. Мы только собираем и распространяем их.</p>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray-light);">© 2023 hiwulkku. Все права защищены.</p>
+        </div>
+    </footer>
+    
     <script>
+        // Создание двоичного фона
+        function createBinaryBackground() {
+            const binaryBackground = document.getElementById('binaryBackground');
+            const binaryStrings = ['101010', '010101', '110011', '001100', '111000', '000111', '101100', '010011'];
+            
+            for (let i = 0; i < 40; i++) {
+                const binaryElement = document.createElement('div');
+                binaryElement.classList.add('binary-text');
+                
+                // Выбираем случайную двоичную строку
+                const randomString = binaryStrings[Math.floor(Math.random() * binaryStrings.length)];
+                // Создаем строку из повторяющихся фрагментов
+                let fullString = '';
+                for (let j = 0; j < 15; j++) {
+                    fullString += randomString + ' ';
+                }
+                
+                binaryElement.textContent = fullString;
+                binaryElement.style.left = `${Math.random() * 100}%`;
+                binaryElement.style.animationDelay = `${Math.random() * 5}s`;
+                binaryElement.style.fontSize = `${Math.random() * 8 + 10}px`;
+                binaryElement.style.opacity = `${Math.random() * 0.3 + 0.05}`;
+                
+                binaryBackground.appendChild(binaryElement);
+            }
+        }
+        
         // Переключение темы
         const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
         const themeIcon = themeToggle.querySelector('i');
         
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            body.classList.toggle('light-theme');
+            document.body.classList.toggle('light-theme');
+            document.body.classList.toggle('dark-theme');
             
-            if (body.classList.contains('dark-theme')) {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Тема';
             } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Тема';
             }
-            
-            // Сохраняем выбор темы в localStorage
-            const isDarkTheme = body.classList.contains('dark-theme');
-            localStorage.setItem('hiwulkku-theme', isDarkTheme ? 'dark' : 'light');
         });
         
-        // Проверяем сохраненную тему при загрузке
+        // Управление уведомлением о Telegram
+        const telegramNotification = document.getElementById('telegramNotification');
+        const closeNotification = document.getElementById('closeNotification');
+        
+        // Проверяем, закрывал ли пользователь уведомление ранее
+        const notificationClosed = localStorage.getItem('telegramNotificationClosed');
+        
+        if (notificationClosed === 'true') {
+            telegramNotification.classList.add('hidden');
+        }
+        
+        closeNotification.addEventListener('click', () => {
+            telegramNotification.classList.add('hidden');
+            localStorage.setItem('telegramNotificationClosed', 'true');
+        });
+        
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('hiwulkku-theme');
-            if (savedTheme === 'dark') {
-                body.classList.remove('light-theme');
-                body.classList.add('dark-theme');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            }
+            createBinaryBackground();
             
-            // Показываем уведомление через 1 секунду после загрузки
-            setTimeout(() => {
-                const notification = document.getElementById('notificationBanner');
-                notification.classList.add('show');
-            }, 1000);
-        });
-        
-        // Обработка клика по уведомлению
-        const notificationBanner = document.getElementById('notificationBanner');
-        notificationBanner.addEventListener('click', () => {
-            alert('Переход в Telegram-канал проекта (в реальном сайте здесь будет ссылка)');
-            // В реальном сайте здесь будет window.open('https://t.me/...', '_blank');
-        });
-        
-        // Обработка кликов по социальным ссылкам
-        document.getElementById('telegramLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Переход в Telegram-канал проекта (в реальном сайте здесь будет ссылка)');
-        });
-        
-        document.getElementById('githubLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Переход на GitHub создателя (в реальном сайте здесь будет ссылка)');
-        });
-        
-        document.getElementById('tiktokLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            alert('Переход на TikTok создателя (в реальном сайте здесь будет ссылка)');
+            // Плавное появление элементов при прокрутке
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Наблюдаем за секциями
+            document.querySelectorAll('section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(section);
+            });
         });
     </script>
 </body>
