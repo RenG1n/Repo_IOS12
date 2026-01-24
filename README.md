@@ -110,9 +110,9 @@ https://ivliushiqxz.github.io/hiwulkku/
 <div align="center">
 
 ### 📞 Контактная информация
-Для вопросов и предложений: **hiwulkku@protonmail.com**
+Для вопросов и предложений: **ivliushiqz@gmail.com**
 
-**© 2023 hiwulkku** • Все права защищены.
+**© 2026 hiwulkku** • Все права защищены.
 
 [⬆️ Наверх](#hiwulkku)
 
