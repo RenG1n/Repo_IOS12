@@ -163,17 +163,3 @@ MD5sum: F1EE829B4FAD6D85F94D26B74D63E03B
 SHA1: 13F27932D42BD8526A1DF4A72B24CF105EEDE554
 SHA256: 2D375E35A4278A88F8BD3861E465C33DCA7EE6D5939BFB623950E11008B59CD0
 
-Package: com.ivintagelover.solidglass
-Name: Solid Glass 2 Rootful
-Version: 2.1-Rootful
-Architecture: iphoneos-arm64
-Description: Solid Glass 2 Rootful
-Maintainer: iVintageLover
-Author: iVintageLover
-Section: Themes
-Depends: mobilesubstrate, preferenceloader
-Filename: debs/com.ivintagelover.solidglass_2.1_Rootful.deb
-Size: 7545484
-MD5sum: F1EE829B4FAD6D85F94D26B74D63E03B
-SHA1: 13F27932D42BD8526A1DF4A72B24CF105EEDE554
-SHA256: 2D375E35A4278A88F8BD3861E465C33DCA7EE6D5939BFB623950E11008B59CD0
