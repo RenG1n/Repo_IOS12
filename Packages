@@ -1,0 +1,14 @@
+Package: com.spark.snowboard
+Name: SnowBoard
+Version: 1.5.37-Beta4-rootless
+Architecture: iphoneos-arm64
+Description: Snowboard
+Maintainer: SparkDev
+Author: Spark
+Section: Tweaks
+Depends: mobilesubstrate, preferenceloader
+Filename: debs/1.5.37-Beta4-rootless.deb
+Size: 1128570
+MD5sum: a7239a85eee273dc2f297878702a97b8
+SHA1: 1b3e80eb10ea03f6ed54f23262789ef37aa02656
+SHA256: 21c4686ced56eede121bc91efcaae27dc2c553857b565351361cd1ae772929d0
