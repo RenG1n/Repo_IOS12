@@ -89,7 +89,7 @@ https://ivliushiqxz.github.io/hiwulkku/
 | **🌐 Официальный сайт** | [ivliushiqxz.github.io/hiwulkku/](https://ivliushiqxz.github.io/hiwulkku/) | Полная информация о репозитории |
 | **📢 Telegram-канал** | [t.me/hiwulkku](https://t.me/hiwulkku) | Новости, обновления и анонсы |
 | **💻 GitHub создателя** | [github.com/ivliushiqxz](https://github.com/ivliushiqxz) | Исходный код и другие проекты |
-| **🎬 TikTok создателя** | [tiktok.com/@hiwulkku](https://tiktok.com/@hiwulkku) | Видео и туториалы по джейлбрейку |
+| **🎬 TikTok создателя** | [tiktok.com/@hiwulkku](https://tiktok.com/@drakulaqp) | Видео и туториалы по джейлбрейку |
 
 ## ⚙️ Техническая информация
 
