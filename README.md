@@ -13,7 +13,7 @@
 [![Website](https://img.shields.io/badge/🌐-Website-black)](https://ivliushiqxz.github.io/hiwulkku/)
 [![Telegram](https://img.shields.io/badge/📢-Telegram-blue)](https://t.me/hiwulkku)
 [![GitHub](https://img.shields.io/badge/💻-GitHub-black)](https://github.com/ivliushiqxz)
-[![TikTok](https://img.shields.io/badge/🎬-TikTok-black)](https://tiktok.com/@hiwulkku)
+[![TikTok](https://img.shields.io/badge/🎬-TikTok-black)](https://tiktok.com/@drakulaqp)
 
 </div>
 
